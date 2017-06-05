@@ -105,21 +105,24 @@ $(function() {
         var oldEntries, oldTitle;
         
         beforeEach(function(done) {
-            oldEntries = $('.feed .entry-link');
-            oldTitle = $('.header-title')[0].innerText;
             loadFeed(1, function() {
-                done();
-            })
-        });
-        afterEach(function() {
-            loadFeed(0);
+                
+                oldEntries = $('.feed .entry-link');
+                oldTitle = $('.header-title')[0].innerText;
+                loadFeed(0, function() {
+                    done();
+                });
+            });
         });
 
         /* A test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          */
         it('the content actually changes', function(done) {
+            // Check the first artical link is changed
             expect($('.feed .entry-link')[0].href != oldEntries[0].href).toBe(true);
+
+            // Check the title on nav-bar is changed
             expect($('.header-title')[0].innerText != oldTitle).toBe(true);
             done();
         });
