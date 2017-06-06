@@ -17,7 +17,7 @@ $(function() {
         var feedList;
 
         beforeEach(function() {
-            feedList = allFeeds;
+            feedList = (allFeeds)? allFeeds:[];
         });
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -37,6 +37,8 @@ $(function() {
          * and that the URL is not empty.
          */
         it('have no empty url', function() {
+            // Check feedList is not empty first to make this test independent
+            expect(feedList.length).not.toBe(0);
             feedList.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url).not.toBe("");
@@ -49,6 +51,8 @@ $(function() {
          * and that the name is not empty.
          */
         it('have no empty name', function() {
+            // Check feedList is not empty first to make this test independent
+            expect(feedList.length).not.toBe(0);
             feedList.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBe("");
@@ -82,10 +86,6 @@ $(function() {
     });
 
     describe('Initial Entries', function() {
-        /* A test that ensures when the loadFeed function is called
-         * and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         */
         beforeEach(function(done) {
             /* Raise the default test timeout (5000) */
             //window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -93,7 +93,13 @@ $(function() {
                 done();
             });
         });
+
+        /* A async test that ensures when the loadFeed function is called
+         * and completes its work, there is at least
+         * a single .entry element within the .feed container.
+         */
         it('has at least one entry', function(done) {
+            // Use global var 'initComplete' to check entries have been changed
             expect(initComlete).toBe(true);
             expect($('.feed .entry').length).toBeGreaterThan(0);
             done();
@@ -108,22 +114,31 @@ $(function() {
             loadFeed(1, function() {
                 
                 oldEntries = $('.feed .entry-link');
-                oldTitle = $('.header-title')[0].innerText;
+                oldTitle = $('.header-title').text();
                 loadFeed(0, function() {
                     done();
                 });
             });
         });
 
-        /* A test that ensures when a new feed is loaded
+        /* A async test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          */
         it('the content actually changes', function(done) {
-            // Check the first artical link is changed
-            expect($('.feed .entry-link')[0].href != oldEntries[0].href).toBe(true);
+            var oldLength = oldEntries.length,
+                newLength = $('.feed .entry-link').length;
+
+            if (newLength > 0 && oldLength > 0) {
+                // Check the first artical link is changed
+                expect($('.feed .entry-link')[0].href != oldEntries[0].href).toBe(true);
+            } 
+            /* Other condition no need to check the entry list 
+             * 1.(newLength=0 or oldLength=0) && (newLength != oldLength)
+             * 2.newLength = oldLength = 0
+             */
 
             // Check the title on nav-bar is changed
-            expect($('.header-title')[0].innerText != oldTitle).toBe(true);
+            expect($('.header-title').text() != oldTitle).toBe(true);
             done();
         });
     });
