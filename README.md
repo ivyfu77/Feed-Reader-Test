@@ -19,13 +19,14 @@ In this project I'm given a web-based application that reads RSS feeds. The orig
 
 #### How to Run
 
-1. Clone or download from [this repository](https://github.com/ivyfu77/Feed-Reader-Test.git) 
+1. Download from [this repository](https://github.com/ivyfu77/Feed-Reader-Test.git) 
 
 `$ git clone https://github.com/ivyfu77/Feed-Reader-Test.git`
 
-2. Open index.html in your browser (Can open directly, no webserver needed)
+2. Open index.html in your browser locally (Can open directly, no webserver needed)
 3. Check Jasmine result at the bottom of page. Click link "Ran 1 of 7 specs - run all" run all 7 specs, Click each spec to run it separately.
 
+![Jasmine Result](https://ivyfu77.github.io/Feed-Reader-Test/screenshots/Jasmine-result.png)
 
 
 
