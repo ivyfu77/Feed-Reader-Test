@@ -19,7 +19,7 @@ In this project I'm given a web-based application that reads RSS feeds. The orig
 
 #### How to Run
 
-1. Clone or download from [this repository](https://github.com/ivyfu77/my_favorite_restaurant.git) 
+1. Clone or download from [this repository](https://github.com/ivyfu77/Feed-Reader-Test.git) 
 
 `$ git clone https://github.com/ivyfu77/Feed-Reader-Test.git`
 
